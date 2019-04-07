@@ -1,19 +1,24 @@
-import os
 import numpy as np
 from keras.utils import to_categorical
+from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
 
 
 class SSTDataset():
-    def __init__(self, data_path: str):
+    def __init__(self, data_path: str, max_sequence_length: int):
 
-        data = os.path.join(data_path)
-
-        with open(data, 'rt', encoding='utf-8') as f1:
+        with open(data_path, 'rt', encoding='utf-8') as f1:
             raw_data = f1.readlines()
 
             self.reviews = np.array([x.strip().split(' ||| ')[0] for x in raw_data])
             self.labels = np.array([np.float32(float(y.strip().split(' ||| ')[1])) for y in raw_data])
 
+        tokenizer = Tokenizer()
+        tokenizer.fit_on_texts(self.reviews)
+        sequences = tokenizer.texts_to_sequences(self.reviews)
+        self.word_index = tokenizer.word_index
+
+        self.reviews = pad_sequences(sequences, maxlen=max_sequence_length)
         self.sentiment = to_categorical(np.asarray(self.labels))
 
     def __len__(self):
@@ -38,7 +43,10 @@ if __name__ == "__main__":
 
     print('pre-loading data')
 
-    dset = SSTDataset('./Data/dev')
+    dset = SSTDataset('./Data/train', 30)
+    word_idx_ = dset.word_index
+
+    print("Found %s unique tokens. " % len(word_idx_))
 
     print(len(dset))
 

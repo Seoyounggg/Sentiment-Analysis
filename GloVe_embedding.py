@@ -1,15 +1,14 @@
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
-from keras.utils import to_categorical
 from keras.layers import Embedding
 import numpy as np
 import os
 
 
-# 이 파일의 결과는 text가 들어오면 embedding 결과를 리턴.
+# 이 파일은 text가 들어오면 embedding 결과를 리턴.
 
 def get_glove(glove_path):
+
     embedding_idx = {}
+
     with open(os.path.join(glove_path, 'glove.6B.100d.txt')) as f:
         f_ = f.readlines()
         for line in f_:
@@ -19,21 +18,28 @@ def get_glove(glove_path):
             embedding_idx[word] = coefs
 
     print('Found %s word vectors. ' % len(embedding_idx))
+
     return embedding_idx
 
 
 def glove_matrix(word_idx, embedding_idx, embedding_dim):
+
     embedding_matrix = np.zeros((len(word_idx) + 1, embedding_dim))
-    for word, i in word_index.items():
+
+    for word, i in word_idx.items():
         embedding_vector = embedding_idx.get(word)
         if embedding_vector is not None:
             embedding_matrix[i] = embedding_vector
+
     return embedding_matrix
 
 
 if __name__ == '__main__':
 
-    MAX_NB_WORDS = 20
+    from keras.preprocessing.text import Tokenizer
+    from keras.preprocessing.sequence import pad_sequences
+    from keras.utils import to_categorical
+
     MAX_SEQUENCE_LENGTH = 10
     EMBEDDING_DIM = 100
     GLOVE_DIR = './Glove'
@@ -43,7 +49,7 @@ if __name__ == '__main__':
                     "It 's a lovely film with lovely performances by Buy and Accorsi .": 1}
     labels = [4, 3]
 
-    tokenizer = Tokenizer(num_words=MAX_NB_WORDS)
+    tokenizer = Tokenizer()
     tokenizer.fit_on_texts(texts)
     sequences = tokenizer.texts_to_sequences(texts)
 

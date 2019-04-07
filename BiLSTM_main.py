@@ -3,7 +3,8 @@ from GloVe_embedding import get_glove, glove_matrix
 import numpy as np
 import os
 import argparse
-from keras import models, layers, optimizers
+from keras.models import Sequential
+from keras.layers import Dense, LSTM, Embedding
 
 
 def _batch_loader(iterable, n=1):
@@ -21,16 +22,33 @@ if __name__ == '__main__':
     args.add_argument('--dev_path', type=str, default='./Data/dev')
     args.add_argument('--test_path', type=str, default='./Data/test')
 
+    # token, embedding process
+    args.add_argument('--max_sequence_length', type=int, default=40)
+    args.add_argument('--embedding_dim', type=int, default=100)
+    args.add_argument('--glove_dir', type=str, default='./Glove')
+
     config = args.parse_args()
 
-    print('Loading data')
+    # Loading data
+    train_data = SSTDataset(config.train_path, config.max_sequence_length)
+    dev_data = SSTDataset(config.dev_path, config.max_sequence_length)
+    test_data = SSTDataset(config.test_path, config.max_sequence_length)
 
-    train_data = SSTDataset(config.train_path)
-    dev_data = SSTDataset(config.dev_path)
-    test_data = SSTDataset(config.test_path)
+    print('Total train dataset:   ', len(train_data))
+    print('Total dev dataset:     ', len(dev_data))
+    print('Total test dataset:    ', len(test_data))
 
-    print('Total number of train dataset:   ', len(train_data))
-    print('Total number of dev dataset:     ', len(dev_data))
-    print('Total number of test dataset:    ', len(test_data))
+    embedding_idx = get_glove(glove_path=config.glove_dir)
+    embedding_matrix = glove_matrix(word_idx=train_data.word_index, embedding_idx=embedding_idx,
+                                    embedding_dim=config.embedding_dim)
 
+    # model build
+    model = Sequential()
+    model.add(Embedding(len(train_data.word_index) + 1, config.embedding_dim, weights=[embedding_matrix],
+                        input_length=config.max_sequence_length, trainable=False))
+
+    model.add(LSTM(128))
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+    print(model.summary())
     print()
