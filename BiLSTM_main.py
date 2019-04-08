@@ -25,12 +25,14 @@ if __name__ == '__main__':
 
     # options
     args.add_argument('--max_sequence_length', type=int, default=40)
-    args.add_argument('--embedding_dim', type=int, default=100)
-    args.add_argument('--glove_dir', type=str, default='./Glove')
+    args.add_argument('--embedding_dim', type=int, default=300)
+    args.add_argument('--glove_dir', type=str, default='./Glove/glove.6B.300d.txt')
     args.add_argument('--lstm_size', type=int, default=128)
     args.add_argument('--epochs', type=int, default=10)
     args.add_argument('--batch', type=int, default=60)
     args.add_argument('--lr', type=float, default=0.001)
+    args.add_argument('--savemodel', type=bool, default=True)
+    args.add_argument('--savename', type=str, default='BiLSTM.h5')
 
     config = args.parse_args()
 
@@ -74,26 +76,34 @@ if __name__ == '__main__':
 
         for i, (data, sentiments) in enumerate(_batch_loader(train_data, config.batch)):
             train_loss, train_acc = model.train_on_batch(data, sentiments)
-            print('Batch : ', i + 1, '/', one_batch,
+
+            print('Batch : ', i, '/', train_one_batch,
                   ', loss in minibatch: ', float(train_loss),
                   ', acc in minibatch: ', float(train_acc))
+
             avg_train_loss += float(train_loss)
             avg_train_acc += float(train_acc)
 
             if i % 100 == 0:
                 avg_dev_acc = 0.0
-                train_data.shuffle()
+                dev_data.shuffle()
+
                 for j, (data_, sentiments_) in enumerate(_batch_loader(dev_data, config.batch)):
                     _, dev_acc = model.test_on_batch(data_, sentiments_)
                     avg_dev_acc += float(dev_acc)
+
                 cur_acc = avg_dev_acc/dev_one_batch
-                print('Validation ACC : ', avg_dev_acc/dev_one_batch)
 
-                if cur_acc >= best_acc:
+                print('Epoch : ', epoch, 'Batch : ', i, '/', train_one_batch, 'Validation ACC : ', cur_acc)
+
+                if cur_acc >= best_acc and config.savemodel == True:
                     best_acc = cur_acc
+
                     print('###################  Best Acc Found  #############')
+                    model.save('./modelsave/{}epoch'.format(epoch) + config.savename)
+                    print('Save new model  {}epoch{}'.format(epoch, config.savename))
 
-
-        print('epoch: ', epoch, ' train_loss: ', float(avg_train_loss/train_one_batch), ' train_acc:', float(avg_train_acc/train_one_batch))
+        print('Epoch: ', epoch,' Train_loss: ', float(avg_train_loss/train_one_batch),
+              ' train_acc:', float(avg_train_acc/train_one_batch))
 
     print()

@@ -9,7 +9,7 @@ def get_glove(glove_path):
 
     embedding_idx = {}
 
-    with open(os.path.join(glove_path, 'glove.6B.100d.txt')) as f:
+    with open(os.path.join(glove_path)) as f:
         f_ = f.readlines()
         for line in f_:
             values = line.split()
