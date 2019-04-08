@@ -25,12 +25,12 @@ class SSTDataset():
         return len(self.reviews)
 
     def __getitem__(self, idx):
-        return self.reviews[idx], self.labels[idx], self.sentiment[idx]
+        return self.reviews[idx], self.sentiment[idx]
 
     def shuffle(self):
         order = np.random.permutation(len(self.reviews))
         self.reviews = self.reviews[order]
-        self.labels = self.labels[order]
+        # self.labels = self.labels[order]  self.labels[idx]
         self.sentiment = self.sentiment[order]
 
 
@@ -52,8 +52,7 @@ if __name__ == "__main__":
 
     for epoch in range(2):
         dset.shuffle()
-        for i, (data, labels, sentiments) in enumerate(_batch_loader(dset, 5)):
+        for i, (data, sentiments) in enumerate(_batch_loader(dset, 5)):
             if i % 100 == 0:
                 print('review:  ', data)
-                print('label:   ', labels)
                 print('sentiment    ', sentiments)
