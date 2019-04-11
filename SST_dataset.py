@@ -5,20 +5,20 @@ from keras.preprocessing.sequence import pad_sequences
 
 
 class SSTDataset():
-    def __init__(self, data_path: str, max_sequence_length: int):
+    def __init__(self, data_path_train: str, max_sequence_length: int):
 
-        with open(data_path, 'rt', encoding='utf-8') as f1:
+        with open(data_path_train, 'rt', encoding='utf-8') as f1:
             raw_data = f1.readlines()
 
-            self.reviews = np.array([x.strip().split(' ||| ')[0] for x in raw_data])
-            self.labels = np.array([np.float32(float(y.strip().split(' ||| ')[1])) for y in raw_data])
+        self.reviews = np.array([x.strip().split(' ||| ')[0] for x in raw_data])
+        self.labels = np.array([np.float32(float(y.strip().split(' ||| ')[1])) for y in raw_data])
 
         tokenizer = Tokenizer()
         tokenizer.fit_on_texts(self.reviews)
         sequences = tokenizer.texts_to_sequences(self.reviews)
         self.word_index = tokenizer.word_index
 
-        self.reviews = pad_sequences(sequences, maxlen=max_sequence_length)
+        self.reviews = pad_sequences(sequences, maxlen=max_sequence_length, padding='post')
         self.sentiment = to_categorical(np.asarray(self.labels))
 
     def __len__(self):
