@@ -4,7 +4,7 @@ import numpy as np
 import os
 import argparse
 from keras.models import Sequential
-from keras.layers import Embedding, Bidirectional, LSTM, Dense, Activation
+from keras.layers import Embedding, Conv1D, Dense, Activation, Flatten, Dropout
 from keras import optimizers
 
 
@@ -24,14 +24,13 @@ if __name__ == '__main__':
     args.add_argument('--test_path', type=str, default='./Data/test')
 
     # options
-    args.add_argument('--max_sequence_length', type=int, default=20)
+    args.add_argument('--max_sequence_length', type=int, default=25)
     args.add_argument('--embedding_dim', type=int, default=300)
     args.add_argument('--glove_dir', type=str, default='./Glove/glove.6B.300d.txt')
-    args.add_argument('--lstm_size', type=int, default=30)
-
+    args.add_argument('--lstm_size', type=int, default=3)
     args.add_argument('--epochs', type=int, default=20)
     args.add_argument('--batch', type=int, default=60)
-    args.add_argument('--lr', type=float, default=0.005)
+    args.add_argument('--lr', type=float, default=0.0005)
     args.add_argument('--savemodel', type=bool, default=True)
     args.add_argument('--savename', type=str, default='BiLSTM.h5')
 
@@ -55,8 +54,13 @@ if __name__ == '__main__':
     model.add(Embedding(len(train_data.word_index) + 1, config.embedding_dim, weights=[embedding_matrix],
                         input_length=config.max_sequence_length, trainable=False))
 
-    model.add(Bidirectional(LSTM(config.lstm_size)))
-    # model.add(Bidirectional(LSTM(config.lstm_size)))
+    model.add(Conv1D(32, kernel_size=3, padding='same'))
+    model.add(Conv1D(32, kernel_size=3, padding='same'))
+    model.add(Conv1D(32, kernel_size=3, padding='same'))
+    model.add(Flatten())
+    model.add(Dropout(0.2))
+    model.add(Dense(64, activation='sigmoid'))
+    model.add(Dropout(0.2))
     model.add(Dense(5))
     model.add(Activation('softmax'))
     model.compile(loss='categorical_crossentropy', optimizer=optimizers.Adam(lr=config.lr), metrics=['accuracy'])
@@ -78,10 +82,9 @@ if __name__ == '__main__':
         for i, (data, sentiments) in enumerate(_batch_loader(train_data, config.batch)):
             train_loss, train_acc = model.train_on_batch(data, sentiments)
 
-            if i % 10 == 0:
-                print('Batch : ', i, '/', train_one_batch,
-                      ', loss in minibatch: ', float(train_loss),
-                      ', acc in minibatch: ', float(train_acc))
+            print('Batch : ', i, '/', train_one_batch,
+                  ', loss in minibatch: ', float(train_loss),
+                  ', acc in minibatch: ', float(train_acc))
 
             avg_train_loss += float(train_loss)
             avg_train_acc += float(train_acc)
@@ -105,7 +108,7 @@ if __name__ == '__main__':
                     model.save('./modelsave/{}epoch'.format(epoch) + config.savename)
                     print('Save new model  {}epoch{}'.format(epoch, config.savename))
 
-        print('\nEpoch: ', epoch,' Train_loss: ', float(avg_train_loss/train_one_batch),
-              ' train_acc:', float(avg_train_acc/train_one_batch),'\n')
+        print('Epoch: ', epoch,' Train_loss: ', float(avg_train_loss/train_one_batch),
+              ' train_acc:', float(avg_train_acc/train_one_batch))
 
-    print('best dev acc: ', best_acc)
+    print()

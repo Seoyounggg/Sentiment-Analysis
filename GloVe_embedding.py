@@ -27,9 +27,13 @@ def glove_matrix(word_idx, embedding_idx, embedding_dim):
     embedding_matrix = np.zeros((len(word_idx) + 1, embedding_dim))
 
     for word, i in word_idx.items():
+        if i > 20000:
+            continue
         embedding_vector = embedding_idx.get(word)
         if embedding_vector is not None:
             embedding_matrix[i] = embedding_vector
+        else:
+            embedding_matrix[i] = np.random.randn(embedding_dim)
 
     return embedding_matrix
 
