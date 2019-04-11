@@ -6,6 +6,7 @@ import argparse
 from keras.models import Sequential
 from keras.layers import Embedding, Bidirectional, LSTM, Dense, Activation
 from keras import optimizers
+from keras import layers
 
 
 def _batch_loader(iterable, n=1):
@@ -50,12 +51,13 @@ if __name__ == '__main__':
                                     embedding_dim=config.embedding_dim)
 
     # model build
+
     model = Sequential()
     model.add(Embedding(len(train_data.word_index) + 1, config.embedding_dim, weights=[embedding_matrix],
                         input_length=config.max_sequence_length, trainable=False))
 
     # model.add(LSTM(config.lstm_size))
-    model.add(Bidirectional(LSTM(config.lstm_size)))
+    model.add(Bidirectional(layers.CuDNNLSTM(config.lstm_size)))
     model.add(Dense(5))
     model.add(Activation('softmax'))
     model.compile(loss='categorical_crossentropy', optimizer=optimizers.Adam(lr=config.lr), metrics=['accuracy'])
