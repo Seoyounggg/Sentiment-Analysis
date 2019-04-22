@@ -53,8 +53,8 @@ if __name__ == '__main__':
     args = argparse.ArgumentParser()
 
     # Data path
-    args.add_argument('--train_path', type=str, default='./Data/train')
-    args.add_argument('--dev_path', type=str, default='./Data/dev')
+    args.add_argument('--train_path', type=str, default='./Data/ratings_train.txt')
+    args.add_argument('--dev_path', type=str, default='./Data/ratings_test.txt')
     args.add_argument('--test_path', type=str, default='./Data/test')
 
     # options
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     print('Total dev dataset:     ', len(dev_data))
 
     inputs = layers.Input((config.max_sequence_length,))
-    layer = layers.Embedding(251, config.embedding, input_length=config.max_sequence_length)(inputs)
+    layer = layers.Embedding(251, config.embedding_dim, input_length=config.max_sequence_length)(inputs)
     layer = layers.Bidirectional(layers.CuDNNGRU(512, return_sequences=True))(layer)
     layer = layers.Bidirectional(layers.CuDNNGRU(512, return_sequences=False))(layer)
 
@@ -109,25 +109,25 @@ if __name__ == '__main__':
             avg_train_acc = 0.0
             train_data.shuffle()
 
-            for i, (data, sentiments) in enumerate(_batch_loader(train_data, config.batch)):
-                train_loss, train_acc = model.train_on_batch(data, sentiments)
+            for i, (data, labels, sentiments) in enumerate(_batch_loader(train_data, config.batch)):
+                loss, ce_loss, mse_loss, ce_acc, mse_acc = model.train_on_batch(data, [sentiments, labels])
 
                 if i % 10 == 0:
                     print('Batch : ', i, '/', train_one_batch,
-                          ', loss in minibatch: ', float(train_loss),
-                          ', acc in minibatch: ', float(train_acc),
+                          ', loss in minibatch: ', float(loss),
+                          ', acc in minibatch: ', float(ce_acc),
                           'current best: ', best_acc)
 
-                avg_train_loss += float(train_loss)
-                avg_train_acc += float(train_acc)
+                avg_train_loss += float(mse_loss)
+                avg_train_acc += float(ce_acc)
 
                 if i % 100 == 0:
                     avg_dev_acc = 0.0
                     dev_data.shuffle()
 
-                    for j, (data_, sentiments_) in enumerate(_batch_loader(dev_data, config.batch)):
-                        _, dev_acc = model.test_on_batch(data_, sentiments_)
-                        avg_dev_acc += float(dev_acc)
+                    for j, (data_, labels_, sentiments_) in enumerate(_batch_loader(dev_data, config.batch)):
+                        _, _, _, ce_acc, _ = model.test_on_batch(data_, [sentiments_, labels_])
+                        avg_dev_acc += float(ce_acc)
 
                     cur_acc = avg_dev_acc / dev_one_batch
 
@@ -155,9 +155,9 @@ if __name__ == '__main__':
 
         avg_test_acc = 0.0
 
-        for k, (data_2, sentiments_2) in enumerate(_batch_loader(test_data, config.batch)):
-            _, test_acc = model.test_on_batch(data_2, sentiments_2)
-            avg_test_acc += float(test_acc)
+        for k, (data_2, labels_2, sentiments_2) in enumerate(_batch_loader(test_data, config.batch)):
+            _, _, _, ce_acc_test, _ = model.test_on_batch(data_2, [sentiments_2, labels_2])
+            avg_test_acc += float(ce_acc_test)
 
         cur_acc = avg_test_acc / test_one_batch
 
