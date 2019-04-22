@@ -52,13 +52,24 @@ def _batch_loader(iterable, n=1):
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
 
-    # User options
-    args.add_argument('--output', type=int, default=1)
-    args.add_argument('--epochs', type=int, default=100)
-    args.add_argument('--batch', type=int, default=512)
-    args.add_argument('--strmaxlen', type=int, default=150)
-    args.add_argument('--embedding', type=int, default=256)
-    args.add_argument('--')
+    # Data path
+    args.add_argument('--train_path', type=str, default='./Data/train')
+    args.add_argument('--dev_path', type=str, default='./Data/dev')
+    args.add_argument('--test_path', type=str, default='./Data/test')
+
+    # options
+    args.add_argument('--max_sequence_length', type=int, default=30)
+    args.add_argument('--embedding_dim', type=int, default=300)
+    args.add_argument('--glove_dir', type=str, default='./Glove/glove.6B.300d.txt')
+    args.add_argument('--lstm_size', type=int, default=5)
+
+    args.add_argument('--epochs', type=int, default=10)
+    args.add_argument('--batch', type=int, default=60)
+    args.add_argument('--lr', type=float, default=0.005)
+    args.add_argument('--savemodel', type=bool, default=True)
+    args.add_argument('--savename', type=str, default='BiLSTM_naver.h5')
+    args.add_argument('--mode', type=str, default='train')
+
     config = args.parse_args()
 
     # Loading data
@@ -68,8 +79,8 @@ if __name__ == '__main__':
     print('Total train dataset:   ', len(train_data))
     print('Total dev dataset:     ', len(dev_data))
 
-    inputs = layers.Input((config.strmaxlen,))
-    layer = layers.Embedding(251, config.embedding, input_length=config.strmaxlen)(inputs)
+    inputs = layers.Input((config.max_sequence_length,))
+    layer = layers.Embedding(251, config.embedding, input_length=config.max_sequence_length)(inputs)
     layer = layers.Bidirectional(layers.CuDNNGRU(512, return_sequences=True))(layer)
     layer = layers.Bidirectional(layers.CuDNNGRU(512, return_sequences=False))(layer)
 
