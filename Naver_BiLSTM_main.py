@@ -84,7 +84,7 @@ if __name__ == '__main__':
     layer = layers.Bidirectional(layers.CuDNNGRU(512, return_sequences=True))(layer)
     layer = layers.Bidirectional(layers.CuDNNGRU(512, return_sequences=False))(layer)
 
-    layer1 = layers.Dense(3)(layer)
+    layer1 = layers.Dense(2)(layer)
     outputs1 = layers.Activation('softmax')(layer1)
 
     layer2 = layers.Dense(1)(layer1)
