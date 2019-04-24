@@ -3,8 +3,9 @@ from GloVe_embedding import get_glove, glove_matrix
 import numpy as np
 import os
 import argparse
-from keras.layers import Conv1D, MaxPooling1D, Dense, Flatten
-from keras import optimizers, layers, models
+from keras.models import Sequential
+from keras.layers import Embedding, Conv1D, Dense, Activation, Flatten, Dropout
+from keras import optimizers
 
 
 def _batch_loader(iterable, n=1):
@@ -50,7 +51,6 @@ if __name__ == '__main__':
                                     embedding_dim=config.embedding_dim)
 
     # model build
-    '''
     model = Sequential()
     model.add(Embedding(len(train_data.word_index) + 1, config.embedding_dim, weights=[embedding_matrix],
                         input_length=config.max_sequence_length, trainable=False))
@@ -67,29 +67,6 @@ if __name__ == '__main__':
     model.compile(loss='categorical_crossentropy', optimizer=optimizers.Adam(lr=config.lr), metrics=['accuracy'])
 
     print(model.summary())
-    '''
-    inputs = layers.Input((config.max_sequence_length,))
-    layer = layers.Embedding(len(train_data.word_index) + 1, config.embedding_dim, weights=[embedding_matrix],
-                             input_length=config.max_sequence_length, trainable=False)(inputs)
-    layer = Conv1D(128, 5, activation='relu')(layer)
-    layer = MaxPooling1D(5)(layer)
-    layer = Conv1D(128, 5, activation='relu')(layer)
-    layer = MaxPooling1D(5)(layer)
-    layer = Conv1D(128, 5, activation='relu')(layer)
-    layer = MaxPooling1D(35)(layer)  # global max pooling
-    layer = Flatten()(layer)
-    layer = Dense(128, activation='relu')(layer)
-
-    layer1 = layers.Dense(2)(layer)
-    outputs1 = layers.Activation('softmax')(layer1)
-
-    layer2 = layers.Dense(1)(layer1)
-    outputs2 = layers.Activation('sigmoid')(layer2)
-    outputs2 = layers.Lambda(lambda layer: layer * 9 + 1)(outputs2)
-    model = models.Model(inputs=inputs, outputs=[outputs1, outputs2])
-    model.summary()
-    model.compile(optimizer=optimizers.Adam(lr=0.001, amsgrad=True, clipvalue=1.0), loss=['categorical_crossentropy', 'mse'], metrics=['accuracy'])
-
 
 
     # train

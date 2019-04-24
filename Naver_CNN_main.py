@@ -1,6 +1,6 @@
 from NSM_dataset import NSMDataset, preprocess
 import argparse
-from keras.layers import Conv1D, MaxPooling1D, Dense, Flatten
+from keras.layers import Conv1D, MaxPooling1D, Dense, Flatten, GlobalMaxPooling1D, Dropout
 from keras import optimizers, layers, models
 
 
@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     # options
     args.add_argument('--max_sequence_length', type=int, default=30)
-    args.add_argument('--embedding_dim', type=int, default=256)
+    args.add_argument('--embedding_dim', type=int, default=128)
     args.add_argument('--glove_dir', type=str, default='./Glove/glove.6B.300d.txt')
     args.add_argument('--lstm_size', type=int, default=5)
 
@@ -46,15 +46,12 @@ if __name__ == '__main__':
     # model build
 
     inputs = layers.Input((config.max_sequence_length,))
-    layer = layers.Embedding(251, config.embedding_dim, input_length=config.max_sequence_length)(inputs)
-    layer = Conv1D(128, 5, activation='relu')(layer)
-    layer = MaxPooling1D(5)(layer)
-    layer = Conv1D(128, 5, activation='relu')(layer)
-    layer = MaxPooling1D(5)(layer)
-    layer = Conv1D(128, 5, activation='relu')(layer)
-    layer = MaxPooling1D(35)(layer)  # global max pooling
-    layer = Flatten()(layer)
+    layer = layers.Embedding(252, config.embedding_dim, input_length=config.max_sequence_length)(inputs)
+    layer = Dropout(0.2)(layer)
+    layer = Conv1D(256, 3, padding='valid', activation='relu', strides=1)(layer)
+    layer = GlobalMaxPooling1D()(layer)
     layer = Dense(128, activation='relu')(layer)
+    layer = Dropout(0.2)(layer)
 
     layer1 = layers.Dense(2)(layer)
     outputs1 = layers.Activation('softmax')(layer1)
