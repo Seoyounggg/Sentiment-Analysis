@@ -15,20 +15,21 @@ if __name__ == '__main__':
     args = argparse.ArgumentParser()
 
     # Data path
-    args.add_argument('--train_path', type=str, default='./Data/train')
-    args.add_argument('--dev_path', type=str, default='./Data/dev')
+    args.add_argument('--train_path', type=str, default='./Data/ratings_train.txt')
+    args.add_argument('--dev_path', type=str, default='./Data/ratings_test.txt')
     args.add_argument('--test_path', type=str, default='./Data/test')
 
     # options
-    args.add_argument('--max_sequence_length', type=int, default=25)
-    args.add_argument('--embedding_dim', type=int, default=300)
+    args.add_argument('--max_sequence_length', type=int, default=30)
+    args.add_argument('--embedding_dim', type=int, default=256)
     args.add_argument('--glove_dir', type=str, default='./Glove/glove.6B.300d.txt')
-    args.add_argument('--lstm_size', type=int, default=3)
-    args.add_argument('--epochs', type=int, default=20)
+    args.add_argument('--lstm_size', type=int, default=5)
+
+    args.add_argument('--epochs', type=int, default=10)
     args.add_argument('--batch', type=int, default=60)
-    args.add_argument('--lr', type=float, default=0.0005)
+    args.add_argument('--lr', type=float, default=0.005)
     args.add_argument('--savemodel', type=bool, default=True)
-    args.add_argument('--savename', type=str, default='Naver_CNN.h5')
+    args.add_argument('--savename', type=str, default='BiLSTM_naver.h5')
     args.add_argument('--mode', type=str, default='train')
 
     config = args.parse_args()
