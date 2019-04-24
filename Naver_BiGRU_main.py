@@ -22,28 +22,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
 import argparse
-import os
-
-import numpy as np
-import tensorflow as tf
-
 from NSM_dataset import NSMDataset, preprocess
-
-from keras import backend as K
 from keras import models
 from keras import layers
 from keras import optimizers
 
 
 def _batch_loader(iterable, n=1):
-    """
-    데이터를 배치 사이즈만큼 잘라서 보내주는 함수입니다. Py
-    의 DataLoader와 같은 역할을 합니다
-
-    :param iterable: 데이터 list, 혹은 다른 포맷
-    :param n: 배치 사이즈
-    :return:
-    """
     length = len(iterable)
     for n_idx in range(0, length, n):
         yield iterable[n_idx:min(n_idx + n, length)]
@@ -94,7 +79,6 @@ if __name__ == '__main__':
     model.summary()
     model.compile(optimizer=optimizers.Adam(lr=0.001, amsgrad=True, clipvalue=1.0), loss=['categorical_crossentropy', 'mse'], metrics=['accuracy'])
 
-    print(model.summary())
 
     # train
     if config.mode == 'train':
