@@ -34,8 +34,7 @@ class NSMDataset():
         self.reviews = np.array([x.strip().split('\t')[1] for x in raw_data])
         self.labels = np.array([np.float32(float(y.strip().split('\t')[2][0])) for y in raw_data])
 
-        with open(dataset_path, 'rt', encoding='utf-8') as f1:
-            self.reviews = preprocess(self.reviews, max_length)
+        self.reviews = preprocess(self.reviews, max_length)
 
         self.sentiment = to_categorical(np.asarray(self.labels))
 

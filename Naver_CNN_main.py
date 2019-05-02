@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     # options
     args.add_argument('--max_sequence_length', type=int, default=30)
-    args.add_argument('--embedding_dim', type=int, default=128)
+    args.add_argument('--embedding_dim', type=int, default=256)
     args.add_argument('--glove_dir', type=str, default='./Glove/glove.6B.300d.txt')
     args.add_argument('--lstm_size', type=int, default=5)
 
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     args.add_argument('--batch', type=int, default=60)
     args.add_argument('--lr', type=float, default=0.005)
     args.add_argument('--savemodel', type=bool, default=True)
-    args.add_argument('--savename', type=str, default='BiLSTM_naver.h5')
+    args.add_argument('--savename', type=str, default='naver_CNN.h5')
     args.add_argument('--mode', type=str, default='train')
 
     config = args.parse_args()
