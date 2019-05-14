@@ -80,10 +80,9 @@ flags.DEFINE_bool(
 
 class InputExample(object):
 
-    def __init__(self, unique_id, text_a, text_b):
+    def __init__(self, unique_id, text_a):
         self.unique_id = unique_id
         self.text_a = text_a
-        self.text_b = text_b
 
 
 class InputFeatures(object):
@@ -178,9 +177,10 @@ def model_fn_builder(bert_config, init_checkpoint, layer_indexes, use_tpu,
 
             def tpu_scaffold():
                 tf.train.init_from_checkpoint(init_checkpoint, assignment_map)
-            return tf.train.Scaffold()
+                return tf.train.Scaffold()
 
             scaffold_fn = tpu_scaffold
+
         else:
             tf.train.init_from_checkpoint(init_checkpoint, assignment_map)
 
@@ -199,7 +199,7 @@ def model_fn_builder(bert_config, init_checkpoint, layer_indexes, use_tpu,
         }
 
         for (i, layer_index) in enumerate(layer_indexes):
-          predictions["layer_output_%d" % i] = all_layers[layer_index]
+            predictions["layer_output_%d" % i] = all_layers[layer_index]
 
         output_spec = tf.contrib.tpu.TPUEstimatorSpec(
             mode=mode, predictions=predictions, scaffold_fn=scaffold_fn)
@@ -212,21 +212,12 @@ def convert_examples_to_features(examples, seq_length, tokenizer):
     """Loads a data file into a list of `InputBatch`s."""
 
     features = []
+
     for (ex_index, example) in enumerate(examples):
         tokens_a = tokenizer.tokenize(example.text_a)
-        tokens_b = None
-    if example.text_b:
-        tokens_b = tokenizer.tokenize(example.text_b)
 
-    if tokens_b:
-        # Modifies `tokens_a` and `tokens_b` in place so that the total
-        # length is less than the specified length.
-        # Account for [CLS], [SEP], [SEP] with "- 3"
-        _truncate_seq_pair(tokens_a, tokens_b, seq_length - 3)
-    else:
-        # Account for [CLS] and [SEP] with "- 2"
-        if len(tokens_a) > seq_length - 2:
-            tokens_a = tokens_a[0:(seq_length - 2)]
+    if len(tokens_a) > seq_length - 2:
+        tokens_a = tokens_a[0:(seq_length - 2)]
 
     # The convention in BERT is:
     # (a) For sequence pairs:
@@ -255,13 +246,6 @@ def convert_examples_to_features(examples, seq_length, tokenizer):
         input_type_ids.append(0)
     tokens.append("[SEP]")
     input_type_ids.append(0)
-
-    if tokens_b:
-        for token in tokens_b:
-            tokens.append(token)
-            input_type_ids.append(1)
-        tokens.append("[SEP]")
-        input_type_ids.append(1)
 
     input_ids = tokenizer.convert_tokens_to_ids(tokens)
 
@@ -300,23 +284,6 @@ def convert_examples_to_features(examples, seq_length, tokenizer):
     return features
 
 
-def _truncate_seq_pair(tokens_a, tokens_b, max_length):
-    """Truncates a sequence pair in place to the maximum length."""
-
-    # This is a simple heuristic which will always truncate the longer sequence
-    # one token at a time. This makes more sense than truncating an equal percent
-    # of tokens from each, since if one sequence is very short then each token
-    # that's truncated likely contains more information than a longer sequence.
-    while True:
-        total_length = len(tokens_a) + len(tokens_b)
-        if total_length <= max_length:
-            break
-        if len(tokens_a) > len(tokens_b):
-            tokens_a.pop()
-        else:
-            tokens_b.pop()
-
-
 def read_examples(input_file):
     """Read a list of `InputExample`s from an input file."""
     examples = []
@@ -327,15 +294,8 @@ def read_examples(input_file):
             if not line:
                 break
             line = line.strip()
-            text_a = None
-            text_b = None
-            m = re.match(r"^(.*) \|\|\| (.*)$", line)
-            if m is None:
-                text_a = line
-            else:
-                text_a = m.group(1)
-                text_b = m.group(2)
-            examples.append(InputExample(unique_id=unique_id, text_a=text_a, text_b=text_b))
+            text_a = line
+            examples.append(InputExample(unique_id=unique_id, text_a=text_a))
             unique_id += 1
     return examples
 
@@ -373,19 +333,16 @@ def main(_):
         use_tpu=FLAGS.use_tpu,
         use_one_hot_embeddings=FLAGS.use_one_hot_embeddings)
 
-    # If TPU is not available, this will fall back to normal Estimator on CPU
-    # or GPU.
+    # If TPU is not available, this will fall back to normal Estimator on CPU or GPU.
     estimator = tf.contrib.tpu.TPUEstimator(
         use_tpu=FLAGS.use_tpu,
         model_fn=model_fn,
         config=run_config,
         predict_batch_size=FLAGS.batch_size)
 
-    input_fn = input_fn_builder(
-        features=features, seq_length=FLAGS.max_seq_length)
+    input_fn = input_fn_builder(features=features, seq_length=FLAGS.max_seq_length)
 
-    with codecs.getwriter("utf-8")(tf.gfile.Open(FLAGS.output_file,
-                                               "w")) as writer:
+    with codecs.getwriter("utf-8")(tf.gfile.Open(FLAGS.output_file, "w")) as writer:
         for result in estimator.predict(input_fn, yield_single_examples=True):
             unique_id = int(result["unique_id"])
             feature = unique_id_to_feature[unique_id]

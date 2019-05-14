@@ -2,4 +2,5 @@
 *glove.6B.100d.txt
 *glove.6B.200d.txt
 *glove.6B.300d.txt
-modelsave/
+*modelsave/
+*multi_cased_L-12_H-768_A-12/
