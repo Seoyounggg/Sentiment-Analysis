@@ -15,21 +15,19 @@ if __name__ == '__main__':
     args = argparse.ArgumentParser()
 
     # Data path
-    args.add_argument('--train_path', type=str, default='./Data/ratings_train.txt')
-    args.add_argument('--dev_path', type=str, default='./Data/ratings_test.txt')
-    args.add_argument('--test_path', type=str, default='./Data/test')
+    args.add_argument('--train_path', type=str, default='../Data/ratings_train.txt')
+    args.add_argument('--dev_path', type=str, default='../Data/ratings_test.txt')
+    args.add_argument('--test_path', type=str, default='../Data/ratings_test.txt')
 
     # options
     args.add_argument('--max_sequence_length', type=int, default=30)
     args.add_argument('--embedding_dim', type=int, default=256)
-    args.add_argument('--glove_dir', type=str, default='./Glove/glove.6B.300d.txt')
-    args.add_argument('--lstm_size', type=int, default=5)
 
     args.add_argument('--epochs', type=int, default=10)
     args.add_argument('--batch', type=int, default=60)
-    args.add_argument('--lr', type=float, default=0.005)
+    args.add_argument('--lr', type=float, default=0.001)
     args.add_argument('--savemodel', type=bool, default=True)
-    args.add_argument('--savename', type=str, default='naver_CNN.h5')
+    args.add_argument('--savename', type=str, default='korean_CNN.h5')
     args.add_argument('--mode', type=str, default='train')
 
     config = args.parse_args()
@@ -61,7 +59,7 @@ if __name__ == '__main__':
     outputs2 = layers.Lambda(lambda layer: layer * 9 + 1)(outputs2)
     model = models.Model(inputs=inputs, outputs=[outputs1, outputs2])
     model.summary()
-    model.compile(optimizer=optimizers.Adam(lr=0.001, amsgrad=True, clipvalue=1.0), loss=['categorical_crossentropy', 'mse'], metrics=['accuracy'])
+    model.compile(optimizer=optimizers.Adam(lr=config.lr, amsgrad=True, clipvalue=1.0), loss=['categorical_crossentropy', 'mse'], metrics=['accuracy'])
 
     # train
     if config.mode == 'train':
@@ -113,7 +111,7 @@ if __name__ == '__main__':
         print('best dev acc: ', best_acc)
 
     else:
-        loadpath = './modelsave/' + '1epochBiLSTM.h5'
+        loadpath = './modelsave/' + '1epochkorean_cnn.h5'
         model.load_weights(loadpath)
 
         test_data = NSMDataset(config.test_path, config.max_sequence_length)

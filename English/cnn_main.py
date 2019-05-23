@@ -19,28 +19,27 @@ if __name__ == '__main__':
     args = argparse.ArgumentParser()
 
     # Data path
-    args.add_argument('--train_path', type=str, default='./Data/train')
-    args.add_argument('--dev_path', type=str, default='./Data/dev')
-    args.add_argument('--test_path', type=str, default='./Data/test')
+    args.add_argument('--train_path', type=str, default='../Data/train')
+    args.add_argument('--dev_path', type=str, default='../Data/dev')
+    args.add_argument('--test_path', type=str, default='../Data/test')
 
     # options
     args.add_argument('--max_sequence_length', type=int, default=25)
     args.add_argument('--embedding_dim', type=int, default=300)
     args.add_argument('--glove_dir', type=str, default='./Glove/glove.6B.300d.txt')
-    args.add_argument('--lstm_size', type=int, default=3)
     args.add_argument('--epochs', type=int, default=20)
     args.add_argument('--batch', type=int, default=60)
     args.add_argument('--lr', type=float, default=0.0005)
     args.add_argument('--savemodel', type=bool, default=True)
-    args.add_argument('--savename', type=str, default='BiLSTM.h5')
-    args.add_argument('--mode', type=str, default='test')
+    args.add_argument('--savename', type=str, default='CNN.h5')
+    args.add_argument('--mode', type=str, default='train')
 
     config = args.parse_args()
 
     # Loading data
     train_data = SSTDataset(config.train_path, config.max_sequence_length)
-    test_data = SSTDataset(config.dev_path, config.max_sequence_length)
-    dev_data = SSTDataset(config.test_path, config.max_sequence_length)
+    dev_data = SSTDataset(config.dev_path, config.max_sequence_length)
+    test_data = SSTDataset(config.test_path, config.max_sequence_length)
 
     print('Total train dataset:   ', len(train_data))
     print('Total dev dataset:     ', len(dev_data))
@@ -67,7 +66,6 @@ if __name__ == '__main__':
     model.compile(loss='categorical_crossentropy', optimizer=optimizers.Adam(lr=config.lr), metrics=['accuracy'])
 
     print(model.summary())
-
 
     # train
     if config.mode == 'train':
@@ -117,11 +115,11 @@ if __name__ == '__main__':
                   ' train_acc:', float(avg_train_acc/train_one_batch),'\n')
 
         print('best dev acc: ', best_acc)
+
     else:
-        loadpath = './modelsave/' + '1epochBiLSTM.h5'
+        loadpath = './modelsave/' + 'CNN.h5'
         model.load_weights(loadpath)
 
-        test_data = SSTDataset(config.dev_path, config.max_sequence_length)
         test_one_batch = len(test_data) // config.batch
         print('Total test dataset:    ', len(test_data))
 

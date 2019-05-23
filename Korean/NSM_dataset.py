@@ -74,5 +74,5 @@ def preprocess(data: list, max_length: int):
 
 
 if __name__ == '__main__':
-    a = NSMDataset('./Data/ratings_test.txt', 20)
+    a = NSMDataset('../Data/ratings_test.txt', 20)
     print()

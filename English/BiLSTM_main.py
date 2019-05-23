@@ -1,7 +1,5 @@
 from SST_dataset import SSTDataset
 from GloVe_embedding import get_glove, glove_matrix
-import numpy as np
-import os
 import argparse
 from keras.models import Sequential
 from keras.layers import Embedding, Bidirectional, LSTM, Dense, Activation
@@ -19,9 +17,9 @@ if __name__ == '__main__':
     args = argparse.ArgumentParser()
 
     # Data path
-    args.add_argument('--train_path', type=str, default='./Data/train')
-    args.add_argument('--dev_path', type=str, default='./Data/dev')
-    args.add_argument('--test_path', type=str, default='./Data/test')
+    args.add_argument('--train_path', type=str, default='../Data/train')
+    args.add_argument('--dev_path', type=str, default='../Data/dev')
+    args.add_argument('--test_path', type=str, default='../Data/test')
 
     # options
     args.add_argument('--max_sequence_length', type=int, default=30)
@@ -60,7 +58,7 @@ if __name__ == '__main__':
     model.add(Activation('softmax'))
     model.compile(loss='categorical_crossentropy', optimizer=optimizers.Adam(lr=config.lr), metrics=['accuracy'])
 
-    print(model.summary())
+    # print(model.summary())
 
     # train
     if config.mode == 'train':
@@ -110,6 +108,7 @@ if __name__ == '__main__':
                   ' train_acc:', float(avg_train_acc/train_one_batch),'\n')
 
         print('best dev acc: ', best_acc)
+
     else:
         loadpath = './modelsave/' + '1epochBiLSTM.h5'
         model.load_weights(loadpath)

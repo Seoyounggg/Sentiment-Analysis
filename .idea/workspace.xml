@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7cd440dc-913e-417a-9022-16860ca37602" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/NSM_bert_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bert_embedding.py" beforeDir="false" afterPath="$PROJECT_DIR$/bert_embedding.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extract_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/extract_features.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/English/BiLSTM_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/English/BiLSTM_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/English/SST_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/English/SST_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/English/cnn_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/English/cnn_main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,36 +17,36 @@
     <session id="-1148905078">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.5" value="5" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.open.time.5" value="6" />
+          <entry key="project.open.time.6" value="2" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="jsonl" value="6" />
-          <entry key="py" value="28" />
+          <entry key="py" value="32" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Python" value="28" />
+          <entry key="Python" value="32" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="214" />
           <entry key="jsonl" value="1" />
-          <entry key="py" value="1755" />
+          <entry key="py" value="1807" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="1969" />
+          <entry key="Python" value="2021" />
         </counts>
       </usages-collector>
     </session>
@@ -53,36 +54,48 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bert_embedding.py">
+        <entry file="file://$PROJECT_DIR$/English/SST_dataset.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="189" lean-forward="true" selection-start-line="189" selection-end-line="189" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NSM_bert_dataset.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="819">
-              <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
-              <folding>
-                <element signature="e#1060#1078#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SST_dataset.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="57" column="50" lean-forward="true" selection-start-line="57" selection-start-column="50" selection-end-line="57" selection-end-column="50" />
+            <state relative-caret-position="491">
+              <caret line="39" column="41" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/English/GloVe_embedding.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="11" column="37" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/English/BiLSTM_main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1476">
+              <caret line="87" column="32" selection-start-line="87" selection-start-column="32" selection-end-line="87" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/English/cnn_main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1098">
+              <caret line="68" selection-start-line="68" selection-end-line="68" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -114,6 +127,8 @@
       <find>labels</find>
       <find>convert_examples_to_features</find>
       <find>example</find>
+      <find>test_data = SSTDataset(config.dev_path, config.max_sequence_length)</find>
+      <find>test_data</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -133,21 +148,23 @@
         <option value="$PROJECT_DIR$/output.jsonl" />
         <option value="$PROJECT_DIR$/NSM_bert_dataset.py" />
         <option value="$PROJECT_DIR$/bert_embedding.py" />
+        <option value="$PROJECT_DIR$/English/cnn_main.py" />
+        <option value="$PROJECT_DIR$/English/BiLSTM_main.py" />
+        <option value="$PROJECT_DIR$/English/SST_dataset.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="773" />
-    <option name="y" value="130" />
-    <option name="width" value="1733" />
-    <option name="height" value="787" />
+    <option name="x" value="118" />
+    <option name="y" value="205" />
+    <option name="width" value="1731" />
+    <option name="height" value="779" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -155,10 +172,16 @@
               <item name="Sentiment-Classification" type="b2602c69:ProjectViewProjectNode" />
               <item name="Sentiment-Classification" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Sentiment-Classification" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Sentiment-Classification" type="462c0819:PsiDirectoryNode" />
+              <item name="English" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -176,8 +199,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.bert_embedding">
-    <configuration name="Naver_CNN_main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.BiLSTM_main">
+    <configuration name="BiLSTM_main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Sentiment-Classification" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -185,11 +208,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/English" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Naver_CNN_main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/English/BiLSTM_main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -283,19 +306,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Naver_CNN_main" />
       <item itemvalue="Python.bert_embedding" />
       <item itemvalue="Python.OpenAIGPT_1" />
       <item itemvalue="Python.extract_features" />
       <item itemvalue="Python.check" />
+      <item itemvalue="Python.BiLSTM_main" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.BiLSTM_main" />
         <item itemvalue="Python.bert_embedding" />
         <item itemvalue="Python.extract_features" />
         <item itemvalue="Python.check" />
         <item itemvalue="Python.OpenAIGPT_1" />
-        <item itemvalue="Python.Naver_CNN_main" />
       </list>
     </recent_temporary>
   </component>
@@ -313,16 +336,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="773" y="130" width="1733" height="787" extended-state="0" />
+    <frame x="118" y="205" width="1731" height="779" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.039204214" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22144112" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.21465969" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.65653497" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.12670156" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.65653497" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -346,31 +369,6 @@
           <line>107</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/extract_features.py</url>
-          <line>321</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/extract_features.py</url>
-          <line>350</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/bert_embedding.py</url>
-          <line>297</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/bert_embedding.py</url>
-          <line>229</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/bert_embedding.py</url>
-          <line>188</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -384,117 +382,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/check.py">
+    <entry file="file://$PROJECT_DIR$/check.py" />
+    <entry file="file://$PROJECT_DIR$/output.jsonl" />
+    <entry file="file://$PROJECT_DIR$/Naver_CNN_main.py" />
+    <entry file="file://$PROJECT_DIR$/Naver_BiGRU_main.py" />
+    <entry file="file://$PROJECT_DIR$/NSM_dataset.py" />
+    <entry file="file://$PROJECT_DIR$/GloVe_embedding.py" />
+    <entry file="file://$PROJECT_DIR$/cnn_main.py" />
+    <entry file="file://$PROJECT_DIR$/BiLSTM_main.py" />
+    <entry file="file://$PROJECT_DIR$/tokenization.py" />
+    <entry file="file://$PROJECT_DIR$/extract_features.py" />
+    <entry file="file://$PROJECT_DIR$/bert_embedding.py" />
+    <entry file="file://$PROJECT_DIR$/NSM_bert_dataset.py" />
+    <entry file="file://$PROJECT_DIR$/SST_dataset.py" />
+    <entry file="file://$PROJECT_DIR$/English/SST_dataset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output.jsonl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1348">
-          <caret column="144743" lean-forward="true" selection-start-column="144743" selection-end-column="144743" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Naver_CNN_main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="61" column="32" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Naver_BiGRU_main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="565">
-          <caret line="83" column="30" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
-          <folding>
-            <element signature="e#1084#1099#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NSM_dataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-22">
-          <caret line="44" column="29" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
-          <folding>
-            <element signature="e#1060#1078#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NSM_bert_dataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="819">
-          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
-          <folding>
-            <element signature="e#1060#1078#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GloVe_embedding.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-702">
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cnn_main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-756">
-          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BiLSTM_main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="62" column="26" selection-start-line="62" selection-start-column="26" selection-end-line="62" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tokenization.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extract_features.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5553">
-          <caret line="25" column="15" lean-forward="true" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
-          <folding>
-            <marker date="1556805006455" expanded="true" signature="2704:2705" ph="..." />
-            <marker date="1556805006455" expanded="true" signature="2704:2709" ph="..." />
-            <marker date="1556805006455" expanded="true" signature="2926:2927" ph="..." />
-            <marker date="1556805006455" expanded="true" signature="2926:2931" ph="..." />
-            <marker date="1556805006455" expanded="true" signature="3585:3586" ph="..." />
-            <marker date="1556805006455" expanded="true" signature="3585:3590" ph="..." />
-            <marker date="1556805006455" expanded="true" signature="4937:4973" ph="..." />
-            <marker date="1556805006455" expanded="true" signature="5867:5876" ph="..." />
-            <marker date="1556805006455" expanded="true" signature="5867:5880" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SST_dataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="57" column="50" lean-forward="true" selection-start-line="57" selection-start-column="50" selection-end-line="57" selection-end-column="50" />
+        <state relative-caret-position="491">
+          <caret line="39" column="41" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bert_embedding.py">
+    <entry file="file://$PROJECT_DIR$/English/GloVe_embedding.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="189" lean-forward="true" selection-start-line="189" selection-end-line="189" />
+        <state relative-caret-position="162">
+          <caret line="11" column="37" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="37" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/English/BiLSTM_main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1476">
+          <caret line="87" column="32" selection-start-line="87" selection-start-column="32" selection-end-line="87" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/English/cnn_main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1098">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>

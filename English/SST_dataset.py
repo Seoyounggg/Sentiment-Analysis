@@ -30,7 +30,6 @@ class SSTDataset():
     def shuffle(self):
         order = np.random.permutation(len(self.reviews))
         self.reviews = self.reviews[order]
-        # self.labels = self.labels[order]  self.labels[idx]
         self.sentiment = self.sentiment[order]
 
 
@@ -43,7 +42,7 @@ if __name__ == "__main__":
 
     print('pre-loading data')
 
-    dset = SSTDataset('./Data/train', 30)
+    dset = SSTDataset('../Data/train', 30)
     word_idx_ = dset.word_index
 
     print("Found %s unique tokens. " % len(word_idx_))
