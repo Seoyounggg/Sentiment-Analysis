@@ -74,5 +74,20 @@ def preprocess(data: list, max_length: int):
 
 
 if __name__ == '__main__':
-    a = NSMDataset('../Data/ratings_test.txt', 20)
-    print()
+
+    max_length = 20
+    batch_size = 3
+
+    def _batch_loader(iterable, n=1):
+        length = len(iterable)
+        for n_idx in range(0, length, n):
+            yield iterable[n_idx:min(n_idx + n, length)]
+
+    a = NSMDataset('../Data/ratings_train.txt', max_length=max_length)
+
+    for i, (data, labels, sentiments) in enumerate(_batch_loader(a, batch_size)):
+        print('data: ', data)
+        print('labels: ', labels)
+        print('sentiments: ', sentiments)
+
+

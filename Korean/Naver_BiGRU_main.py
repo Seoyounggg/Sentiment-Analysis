@@ -78,7 +78,7 @@ if __name__ == '__main__':
     model.summary()
     model.compile(optimizer=optimizers.Adam(lr=config.lr, amsgrad=True, clipvalue=1.0), loss=['categorical_crossentropy', 'mse'], metrics=['accuracy'])
 
-
+retrieval
     # train
     if config.mode == 'train':
 
