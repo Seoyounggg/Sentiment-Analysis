@@ -62,7 +62,8 @@ if __name__ == '__main__':
 
     print('Total train dataset:   ', len(train_data))
     print('Total dev dataset:     ', len(dev_data))
-
+    
+    # model
     inputs = layers.Input((config.max_sequence_length,))
     layer = layers.Embedding(251, config.embedding_dim, input_length=config.max_sequence_length)(inputs)
     layer = layers.Bidirectional(layers.CuDNNGRU(config.gru_size, return_sequences=True))(layer)
@@ -76,7 +77,8 @@ if __name__ == '__main__':
     outputs2 = layers.Lambda(lambda layer: layer * 9 + 1)(outputs2)
     model = models.Model(inputs=inputs, outputs=[outputs1, outputs2])
     model.summary()
-    model.compile(optimizer=optimizers.Adam(lr=config.lr, amsgrad=True, clipvalue=1.0), loss=['categorical_crossentropy', 'mse'], metrics=['accuracy'])
+    model.compile(optimizer=optimizers.Adam(lr=config.lr, amsgrad=True, clipvalue=1.0), loss=['categorical_crossentropy', 'mse'], 
+                  metrics=['accuracy'])
 
     # train
     if config.mode == 'train':
