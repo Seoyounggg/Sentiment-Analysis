@@ -66,7 +66,7 @@ if __name__ == '__main__':
     # model
     inputs = layers.Input((config.max_sequence_length,))
     layer = layers.Embedding(251, config.embedding_dim, input_length=config.max_sequence_length)(inputs)
-    layer = layers.Bidirectional(layers.CuDNNGRU(config.gru_size, return_sequences=True))(layer)
+    layer = layers.Bidirectional(layers.CuDNNGRU(config.gru_size, return_sequences=True), merge_mode='concat')(layer)
     layer = layers.Bidirectional(layers.CuDNNGRU(config.gru_size, return_sequences=False))(layer)
 
     layer1 = layers.Dense(2)(layer)
