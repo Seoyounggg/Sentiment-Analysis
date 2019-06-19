@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
     outputs1 = layers.Dense(2, activation='softmax')(layer)
     
-    outputs2 = layers.Dense(1, activation='sigmoid')(layer1)
+    outputs2 = layers.Dense(1, activation='sigmoid')(layer)
     outputs2 = layers.Lambda(lambda layer: layer * 9 + 1)(outputs2)
     model = models.Model(inputs=inputs, outputs=[outputs1, outputs2])
     model.summary()
