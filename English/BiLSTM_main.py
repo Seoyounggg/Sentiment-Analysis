@@ -51,14 +51,11 @@ if __name__ == '__main__':
     model = Sequential()
     model.add(Embedding(len(train_data.word_index) + 1, config.embedding_dim, weights=[embedding_matrix],
                         input_length=config.max_sequence_length, trainable=False))
-
-    # model.add(LSTM(config.lstm_size))
     model.add(Bidirectional(LSTM(config.lstm_size)))
     model.add(Dense(5))
     model.add(Activation('softmax'))
     model.compile(loss='categorical_crossentropy', optimizer=optimizers.Adam(lr=config.lr), metrics=['accuracy'])
-
-    # print(model.summary())
+    print(model.summary())
 
     # train
     if config.mode == 'train':
