@@ -45,11 +45,9 @@ if __name__ == '__main__':
 
     inputs = layers.Input((config.max_sequence_length,))
     layer = layers.Embedding(252, config.embedding_dim, input_length=config.max_sequence_length)(inputs)
-    layer = Dropout(0.2)(layer)
     layer = Conv1D(256, 3, padding='valid', activation='relu', strides=1)(layer)
     layer = GlobalMaxPooling1D()(layer)
     layer = Dense(128, activation='relu')(layer)
-    layer = Dropout(0.2)(layer)
 
     layer1 = layers.Dense(2)(layer)
     outputs1 = layers.Activation('softmax')(layer1)
