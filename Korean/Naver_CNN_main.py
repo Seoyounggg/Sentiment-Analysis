@@ -55,7 +55,8 @@ if __name__ == '__main__':
     outputs2 = layers.Lambda(lambda layer: layer * 9 + 1)(outputs2)
     model = models.Model(inputs=inputs, outputs=[outputs1, outputs2])
     model.summary()
-    model.compile(optimizer=optimizers.Adam(lr=config.lr, amsgrad=True, clipvalue=1.0), loss=['categorical_crossentropy', 'mse'], metrics=['accuracy'])
+    model.compile(optimizer=optimizers.Adam(lr=config.lr, amsgrad=True, clipvalue=1.0), 
+                  loss=['categorical_crossentropy', 'mse'], metrics=['accuracy'])
 
     # train
     if config.mode == 'train':
