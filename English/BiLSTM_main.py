@@ -53,8 +53,7 @@ if __name__ == '__main__':
                         input_length=config.max_sequence_length, trainable=False))
     model.add(Bidirectional(LSTM(config.lstm_size, return_sequence=True), merge_mode='concat'))
     model.add(Bidirectional(LSTM(config.lstm_size, return_sequence=False)))
-    model.add(Dense(5))
-    model.add(Activation('softmax'))
+    model.add(Dense(5, activation='softmax'))
     model.compile(loss='categorical_crossentropy', optimizer=optimizers.Adam(lr=config.lr), metrics=['accuracy'])
     print(model.summary())
 
