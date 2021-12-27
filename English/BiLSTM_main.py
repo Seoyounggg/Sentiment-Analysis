@@ -2,7 +2,7 @@ from SST_dataset import SSTDataset
 from GloVe_embedding import get_glove, glove_matrix
 import argparse
 from keras.models import Sequential
-from keras.layers import Embedding, Bidirectional, LSTM, Dense, Activation
+from keras.layers import Embedding, Bidirectional, LSTM, Dense, Dropout,Activation
 from keras import optimizers
 
 
@@ -26,6 +26,7 @@ if __name__ == '__main__':
     args.add_argument('--embedding_dim', type=int, default=300)
     args.add_argument('--glove_dir', type=str, default='./Glove/glove.6B.300d.txt')
     args.add_argument('--lstm_size', type=int, default=10)
+    args.add_argument('--drop_out', type=float, default=0.5)
 
     args.add_argument('--epochs', type=int, default=10)
     args.add_argument('--batch', type=int, default=60)
@@ -51,10 +52,10 @@ if __name__ == '__main__':
     model = Sequential()
     model.add(Embedding(len(train_data.word_index) + 1, config.embedding_dim, weights=[embedding_matrix],
                         input_length=config.max_sequence_length, trainable=False))
-    model.add(Bidirectional(LSTM(config.lstm_size, return_sequence=True), merge_mode='concat'))
-    model.add(Bidirectional(LSTM(config.lstm_size, return_sequence=False)))
+    model.add(Bidirectional(LSTM(config.lstm_size)))
+    model.add(Dropout(config.dropout))
     model.add(Dense(5, activation='softmax'))
-    model.compile(loss='categorical_crossentropy', optimizer=optimizers.Adam(lr=config.lr), metrics=['accuracy'])
+    model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(lr=config.lr), metrics=['accuracy'])
     print(model.summary())
 
     # train
