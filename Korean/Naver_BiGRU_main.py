@@ -46,9 +46,10 @@ if __name__ == '__main__':
     args.add_argument('--max_sequence_length', type=int, default=30)
     args.add_argument('--embedding_dim', type=int, default=256)
     args.add_argument('--gru_size', type=int, default=100)
+    args.add_argument('--drop_out', type=float, default=0.6)
 
     args.add_argument('--epochs', type=int, default=10)
-    args.add_argument('--batch', type=int, default=60)
+    args.add_argument('--batch', type=int, default=64)
     args.add_argument('--lr', type=float, default=0.001)
     args.add_argument('--savemodel', type=bool, default=True)
     args.add_argument('--savename', type=str, default='korean_BiGRU.h5')
@@ -65,9 +66,9 @@ if __name__ == '__main__':
     
     # model
     inputs = layers.Input((config.max_sequence_length,))
-    layer = layers.Embedding(251, config.embedding_dim, input_length=config.max_sequence_length)(inputs)
-    layer = layers.Bidirectional(layers.CuDNNGRU(config.gru_size, return_sequences=True), merge_mode='concat')(layer)
-    layer = layers.Bidirectional(layers.CuDNNGRU(config.gru_size, return_sequences=False))(layer)
+    layer = layers.Embedding(252, config.embedding_dim, input_length=config.max_sequence_length)(inputs)
+    layer = layers.Bidirectional(layers.GRU(config.gru_size))(layer)
+    layer = layers.Dropout(config.drop_out)(layer)
 
     outputs1 = layers.Dense(2, activation='softmax')(layer)
     
