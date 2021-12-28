@@ -48,15 +48,9 @@
 > **Korean**
 
 **Character Embedding + CNN**
-- Validation accuracy
-<p align="center"><img src="" width="300"></p>  
-
 - Test accuracy
-<p align="center"><img src="" width="300"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/42035101/147611302-26a50b0a-218a-4f56-aa2b-f4fe775bd347.png" width="300"></p>
 
 **Character Embedding + BiLSTM**
-- Validation accuracy
-<p align="center"><img src="" width="300"></p>  
-
 - Test accuracy
-<p align="center"><img src="" width="300"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/42035101/147611304-bbadeb57-8181-4fc4-ada9-8d4bc810b1c7.png" width="300"></p>
